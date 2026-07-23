@@ -851,9 +851,14 @@ with tab_watchlist:
                 row_data["Δ Score"] = (row_data["Score Now"] or 0) - (prev[1] or 0)
                 row_data["Prev Date"] = prev[0]
                 row_data["Prev Price"] = prev[4]
-                if row_data["Price"] and prev[4]:
-                    row_data["Δ Price %"] = (row_data["Price"] - prev[4]) / prev[4] * 100
-                else:
+                try:
+                    price_now = float(row_data["Price"]) if row_data["Price"] is not None else None
+                    price_prev = float(prev[4]) if prev[4] is not None else None
+                    if price_now and price_prev:
+                        row_data["Δ Price %"] = (price_now - price_prev) / price_prev * 100
+                    else:
+                        row_data["Δ Price %"] = None
+                except (TypeError, ValueError):
                     row_data["Δ Price %"] = None
             else:
                 row_data["Score Prev"] = None
