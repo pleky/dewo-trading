@@ -1,0 +1,37 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+
+# Streamlit
+streamlit.log
+.streamlit/secrets.toml
+
+# Private trading data (DO NOT COMMIT)
+01-trade-log.csv
+02-position-tracker.csv
+05-monthly-summary.csv
+pending_orders.csv
+us_positions.csv
+cash_state.txt
+history.db
+
+# Env / secrets
+.env
+.env.local
+.env.*.local
+
+# Fly.io
+.fly/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp

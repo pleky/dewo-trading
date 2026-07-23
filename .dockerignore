@@ -1,0 +1,15 @@
+.venv
+venv
+__pycache__
+*.pyc
+.git
+.gitignore
+.dockerignore
+streamlit.log
+.env
+.env.local
+.fly
+.vscode
+.idea
+*.md
+!README.md

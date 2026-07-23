@@ -1,0 +1,85 @@
+# US Market Tickers — one per line, comment with #
+# Format: TICKER  # Category
+# Covers mega caps + growth + dividend + ETFs
+
+# Mega Cap Tech
+AAPL   # Tech - Consumer Electronics
+MSFT   # Tech - Software
+GOOGL  # Tech - Search/Cloud
+AMZN   # Tech - E-commerce/Cloud
+META   # Tech - Social Media
+NVDA   # Tech - AI/Semiconductor
+TSLA   # Tech - EV/Energy
+
+# Semiconductor
+AVGO   # Semiconductor - AI
+AMD    # Semiconductor - CPU/GPU
+INTC   # Semiconductor - CPU
+TSM    # Semiconductor - Foundry (Taiwan)
+QCOM   # Semiconductor - Mobile
+MU     # Semiconductor - Memory
+ASML   # Semiconductor - Equipment (Netherlands)
+
+# Software / SaaS
+CRM    # Software - CRM
+ORCL   # Software - Database
+ADBE   # Software - Creative
+NOW    # Software - Workflow
+SNOW   # Software - Data Cloud
+PLTR   # Software - Data Analytics
+
+# Consumer
+WMT    # Consumer - Retail
+COST   # Consumer - Wholesale
+HD     # Consumer - Home Improvement
+MCD    # Consumer - Restaurants
+NKE    # Consumer - Athletic Wear
+SBUX   # Consumer - Coffee
+KO     # Consumer - Beverages
+PEP    # Consumer - Beverages/Snacks
+
+# Finance
+JPM    # Finance - Bank
+BAC    # Finance - Bank
+V      # Finance - Payments
+MA     # Finance - Payments
+GS     # Finance - Investment Bank
+BRK-B  # Finance - Conglomerate (Berkshire)
+
+# Healthcare
+JNJ    # Healthcare - Diversified
+PFE    # Healthcare - Pharma
+UNH    # Healthcare - Insurance
+LLY    # Healthcare - Pharma (GLP-1)
+MRK    # Healthcare - Pharma
+ABBV   # Healthcare - Pharma
+
+# Energy
+XOM    # Energy - Oil
+CVX    # Energy - Oil
+COP    # Energy - Oil
+
+# ETFs
+SPY    # ETF - S&P 500
+QQQ    # ETF - NASDAQ 100
+DIA    # ETF - Dow Jones
+IWM    # ETF - Russell 2000
+GLD    # ETF - Gold
+SLV    # ETF - Silver
+TLT    # ETF - Long Treasury
+VOO    # ETF - S&P 500 (Vanguard)
+
+# Communication
+NFLX   # Communication - Streaming
+DIS    # Communication - Media/Parks
+T      # Communication - Telecom
+VZ     # Communication - Telecom
+
+# Industrial / Aerospace
+BA     # Industrial - Aerospace
+CAT    # Industrial - Heavy Machinery
+GE     # Industrial - Diversified
+
+# China ADR / International
+BABA   # China - E-commerce
+PDD    # China - E-commerce

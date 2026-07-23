@@ -1,0 +1,18 @@
+# Watchlist — one ticker per line
+# Edit to add/remove tickers
+
+MAPI
+ADRO
+RAJA
+GGRM
+MAPA
+UNTR
+ADMR
+CMRY
+HRTA
+DSSA
+AAPL
+KLBF
+BNBR
+PTRO
+DEWA

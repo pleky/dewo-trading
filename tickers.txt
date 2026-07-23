@@ -1,0 +1,88 @@
+# IDX Ticker List — one per line, comment with #
+# Format: TICKER  # Category
+# Update Mei 2026 rebalance
+
+# IDX30 core
+BBCA  # Bank
+BBRI  # Bank
+BMRI  # Bank
+BBNI  # Bank
+TLKM  # Telco
+ASII  # Konglomerat
+UNTR  # Heavy Equipment
+ICBP  # Consumer Staples
+INDF  # Consumer Staples
+UNVR  # Consumer Staples
+MYOR  # Consumer Staples
+KLBF  # Healthcare
+SMGR  # Semen
+PGAS  # Gas
+JSMR  # Tol
+ADRO  # Batu Bara
+PTBA  # Batu Bara BUMN
+ITMG  # Batu Bara
+ANTM  # Nickel/Emas
+INCO  # Nickel
+MDKA  # Copper/Gold
+AMMN  # Copper/Gold
+BRPT  # Petrokimia
+TPIA  # Petrokimia
+CPIN  # Poultry
+GOTO  # Tech
+ADMR  # Mining (masuk IDX30 Mei 2026)
+AMRT  # Retail
+HMSP  # Rokok
+GGRM  # Rokok
+
+# LQ45 additional (Mei 2026 additions)
+CUAN  # Mining
+DEWA  # Mining Kontraktor
+ESSA  # LPG/Gas
+HRTA  # Emas Retail
+WIFI  # Data Center
+
+# LQ45 established
+MAPA  # Sport Retail
+MAPI  # Retail Brand
+CMRY  # Dairy
+SIDO  # Jamu
+EXCL  # Telco
+BUKA  # Tech
+ISAT  # Telco
+BSDE  # Property
+PWON  # Property
+CTRA  # Property
+
+# Additional momentum plays
+BUMI  # Mining
+BRMS  # Mining
+ENRG  # Oil & Gas
+RAJA  # Utilities
+ARTO  # Bank Digital
+HEAL  # RS Hermina
+MIKA  # RS Mitra Keluarga
+
+# Legacy holdings (mas dewo portfolio)
+BRNA  # Legacy - Industri
+BULL  # Legacy - Marine
+DADA  # Legacy - Small Cap
+DSSA  # Legacy - Sinarmas group (Dian Swastatika)
+GTSI  # Legacy - Marine
+HDIT  # Legacy - IT
+IKAN  # Legacy - Seafood (Era Mandiri)
+MEJA  # Legacy - Furniture (Harta Djaya)
+WBSA  # Legacy - Consumer WINNER
+
+# Watchlist additions
+BNBR  # Bakrie & Brothers (investment holding)
+
+# Quality Small/Mid Cap (observation only, not for portfolio)
+MTDL  # Quality Mid Cap - IT Distribution
+BRAM  # Quality Small Cap - Indo Kordsa Tekstil
+BJTM  # Quality Small Cap - Bank Jatim (regional)
+BJBR  # Quality Small Cap - Bank Jabar (regional)
+INKP  # Quality Mid Cap - Indah Kiat Pulp
+ULTJ  # Quality Mid Cap - Ultrajaya Dairy
+TBLA  # Quality Mid Cap - Tunas Baru Lampung Agri
+JPFA  # Quality Mid Cap - Poultry
+PTRO  # Petrosea (mining contractor)
