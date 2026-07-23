@@ -6,6 +6,7 @@ Run:
     ./.venv/bin/streamlit run web_screener.py
 """
 
+import os
 from pathlib import Path
 
 import pandas as pd
@@ -81,6 +82,27 @@ st.set_page_config(
     page_icon="📊",
     layout="wide",
 )
+
+
+def _check_auth():
+    """Password gate. Enabled when APP_PASSWORD env var is set."""
+    required = os.getenv("APP_PASSWORD")
+    if not required:
+        return
+    if st.session_state.get("auth_ok"):
+        return
+    st.title("🔒 Login")
+    pw = st.text_input("Password", type="password", key="pw_input")
+    if st.button("Enter") or pw:
+        if pw == required:
+            st.session_state.auth_ok = True
+            st.rerun()
+        elif pw:
+            st.error("Wrong password")
+    st.stop()
+
+
+_check_auth()
 
 
 def _safe_pct(val):
