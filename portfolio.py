@@ -3,57 +3,78 @@
 Portfolio helper module — reads position CSVs, fetches live prices, computes P/L.
 """
 
-import os
-from pathlib import Path
-
 import pandas as pd
 import yfinance as yf
 
-BASE_DIR = Path(__file__).parent
-DATA_DIR = Path(os.getenv("DATA_DIR", str(BASE_DIR)))
-POSITIONS_CSV = DATA_DIR / "02-position-tracker.csv"
-PENDING_CSV = DATA_DIR / "pending_orders.csv"
+from db import get_cursor, get_engine
 
 # Portfolio baseline (starting point for recovery tracking)
 BASELINE_INVESTED = 73_666_205  # Total invested before recovery started
 BASELINE_EQUITY_START = 49_580_501  # Equity when recovery started (22 Jul 2026)
 
-# Cash tracking (updated after each session)
-TRADING_BALANCE_FILE = DATA_DIR / "cash_state.txt"
-
 
 def load_cash_state():
     """Load current cash state: trading balance + reserved pending."""
-    if not TRADING_BALANCE_FILE.exists():
-        return {"trading_balance": 0, "reserved_pending": 0}
     try:
-        lines = TRADING_BALANCE_FILE.read_text().strip().splitlines()
-        state = {}
-        for line in lines:
-            k, v = line.split("=", 1)
-            state[k.strip()] = float(v.strip())
+        with get_cursor() as cur:
+            cur.execute("SELECT key, value FROM cash_state")
+            rows = cur.fetchall()
+        state = {k: float(v) for k, v in rows}
+        state.setdefault("trading_balance", 0)
+        state.setdefault("reserved_pending", 0)
         return state
     except Exception:
         return {"trading_balance": 0, "reserved_pending": 0}
 
 
 def save_cash_state(trading_balance: float, reserved_pending: float):
-    TRADING_BALANCE_FILE.write_text(
-        f"trading_balance={trading_balance}\n"
-        f"reserved_pending={reserved_pending}\n"
-    )
+    with get_cursor() as cur:
+        cur.execute("""
+            INSERT INTO cash_state (key, value, updated_at)
+            VALUES (%s, %s, NOW())
+            ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value, updated_at = NOW()
+        """, ("trading_balance", trading_balance))
+        cur.execute("""
+            INSERT INTO cash_state (key, value, updated_at)
+            VALUES (%s, %s, NOW())
+            ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value, updated_at = NOW()
+        """, ("reserved_pending", reserved_pending))
 
 
 def load_positions() -> pd.DataFrame:
-    if not POSITIONS_CSV.exists():
+    try:
+        df = pd.read_sql_query("""
+            SELECT ticker AS "Ticker", lot AS "Lot", avg_price AS "Avg Price",
+                   cost_basis AS "Cost Basis", layer AS "Layer",
+                   stop_loss AS "Stop Loss", take_profit_1 AS "Take Profit 1",
+                   take_profit_2 AS "Take Profit 2", entry_date AS "Entry Date",
+                   notes AS "Notes"
+            FROM positions
+        """, get_engine())
+        for col in ["Lot", "Avg Price", "Cost Basis", "Stop Loss", "Take Profit 1", "Take Profit 2"]:
+            if col in df.columns:
+                df[col] = pd.to_numeric(df[col], errors="coerce")
+        return df
+    except Exception:
         return pd.DataFrame()
-    return pd.read_csv(POSITIONS_CSV)
 
 
 def load_pending() -> pd.DataFrame:
-    if not PENDING_CSV.exists():
+    try:
+        df = pd.read_sql_query("""
+            SELECT ticker AS "Ticker", action AS "Action", limit_price AS "Limit Price",
+                   lot AS "Lot", amount AS "Amount", status AS "Status", expiry AS "Expiry",
+                   layer AS "Layer", stop_loss_target AS "Stop Loss Target",
+                   take_profit_1 AS "Take Profit 1", take_profit_2 AS "Take Profit 2",
+                   notes AS "Notes"
+            FROM pending_orders
+        """, get_engine())
+        for col in ["Limit Price", "Lot", "Amount", "Stop Loss Target", "Take Profit 1", "Take Profit 2"]:
+            if col in df.columns:
+                df[col] = pd.to_numeric(df[col], errors="coerce")
+        return df
+    except Exception:
         return pd.DataFrame()
-    return pd.read_csv(PENDING_CSV)
 
 
 def fetch_current_price(ticker: str) -> float:

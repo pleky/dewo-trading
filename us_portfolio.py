@@ -4,21 +4,26 @@ US Portfolio module — handle US stock positions via Gotrade or similar brokers
 Uses yfinance without .JK suffix.
 """
 
-import os
-from pathlib import Path
-
 import pandas as pd
 import yfinance as yf
 
-BASE_DIR = Path(__file__).parent
-DATA_DIR = Path(os.getenv("DATA_DIR", str(BASE_DIR)))
-US_POSITIONS_CSV = DATA_DIR / "us_positions.csv"
+from db import get_engine
 
 
 def load_us_positions() -> pd.DataFrame:
-    if not US_POSITIONS_CSV.exists():
+    try:
+        df = pd.read_sql_query("""
+            SELECT ticker AS "Ticker", name AS "Name", shares AS "Shares",
+                   avg_cost_usd AS "Avg Cost USD", cost_basis_usd AS "Cost Basis USD",
+                   notes AS "Notes"
+            FROM us_positions
+        """, get_engine())
+        for col in ["Shares", "Avg Cost USD", "Cost Basis USD"]:
+            if col in df.columns:
+                df[col] = pd.to_numeric(df[col], errors="coerce")
+        return df
+    except Exception:
         return pd.DataFrame()
-    return pd.read_csv(US_POSITIONS_CSV)
 
 
 def fetch_us_price(ticker: str) -> float:
